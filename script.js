@@ -3,7 +3,7 @@
    Kişiselleştirme için yalnızca CONFIG bölümünü düzenlemen yeterli.
    ========================================================== */
 const CONFIG = {
-  inviteDate: "Bu Cumartesi · 20:00",
+  inviteDate: "Bu akşam · 17:30",
   invitePlace: "Sürpriz 🤫 (Seni kapından alacağım)",
 
   // Fotoğraflar "photos" klasöründen okunur (01.jpg, 02.jpg ...).
