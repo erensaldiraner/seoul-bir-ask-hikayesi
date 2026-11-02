@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover">
+  <meta name="theme-color" content="#07090e">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <title>Seoul, Bir Aşk Hikâyesi · Başrolde: Aleyna</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,700;1,500&family=Noto+Sans+KR:wght@400;700&family=Noto+Serif+KR:wght@400;700&family=Special+Elite&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <!-- Atmosfer katmanları -->
+  <div class="bokeh" id="bokeh" aria-hidden="true"></div>
+  <canvas id="rain" aria-hidden="true"></canvas>
+  <div class="vignette" aria-hidden="true"></div>
+  <div class="grain" aria-hidden="true"><div class="grain-inner"></div></div>
+
+  <!-- 0 · Giriş -->
+  <section id="intro" class="screen active">
+    <p class="intro-line l1">Bu gece, tek kişilik bir gösterim var.</p>
+    <p class="intro-line l2 ko">오늘 밤, 단 한 사람을 위한 상영</p>
+    <button id="startBtn" class="neon-btn l3">Biletini al 🎟️</button>
+    <p class="intro-small l3">🔊 Sesi açman önerilir</p>
+  </section>
+
+  <!-- 1 · Bilet -->
+  <section id="ticketScreen" class="screen">
+    <div class="ticket" id="ticket">
+      <div class="ticket-main">
+        <div class="ticket-top"><span>SEOUL CINEMA</span><span>No. 0001</span></div>
+        <h1>SEOUL,<br>BİR AŞK HİKÂYESİ</h1>
+        <p class="ko-title">서울, 사랑 이야기</p>
+        <div class="ticket-info">
+          <div><small>BAŞROLDE</small><b>ALEYNA</b></div>
+          <div><small>SALON</small><b>Kalbim</b></div>
+          <div><small>KOLTUK</small><b id="seat" class="tappable">1A</b></div>
+          <div><small>SEANS</small><b>Sonsuza Kadar</b></div>
+        </div>
+        <p class="ticket-foot">Yönetmen: Eren · Tek kişilik özel gösterim</p>
+      </div>
+      <div class="ticket-stub" id="stub">
+        <div class="barcode tappable" id="barcode"></div>
+        <span class="admit">ADMIT ONE ♥</span>
+        <span class="stub-no">SK-ALY-0001</span>
+      </div>
+    </div>
+    <p class="hint" id="tearHint">Filmi başlatmak için koçanı kopar ✂️</p>
+  </section>
+
+  <!-- 2 · Geri sayım -->
+  <section id="countdown" class="screen">
+    <div class="leader">
+      <div class="sweep" id="sweep"></div>
+      <div class="cross"></div>
+      <span id="countNum">3</span>
+    </div>
+  </section>
+
+  <!-- 3 · Fragman -->
+  <section id="trailer" class="screen">
+    <div class="bar top"><div class="progress"><i id="progress"></i></div></div>
+    <div class="stage" id="stage"></div>
+    <div class="subs">
+      <p class="subtitle" id="subTr"></p>
+      <p class="subtitle sub2" id="subKo"></p>
+    </div>
+    <div class="bar bottom"><span class="tap-hint">dokun ›  sonraki sahne</span></div>
+  </section>
+
+  <!-- 4 · Jenerik -->
+  <section id="credits" class="screen">
+    <div class="roll" id="roll"></div>
+    <button class="skip" id="skipCredits">Atla ›</button>
+  </section>
+
+  <!-- 5 · Devam filmi + davet -->
+  <section id="sequel" class="screen">
+    <div class="sequel-box" id="sequelBox">
+      <p class="s-label">DEVAM FİLMİ · 속편</p>
+      <h2 class="s-title">SONSUZA KADAR</h2>
+      <p class="s-ko">영원히</p>
+      <p class="s-soon">Yakında... aslında, çok yakında.</p>
+      <div class="question" id="question">
+        <p>Bu filmin devamını benimle çekmeye var mısın, <b>Aleyna</b>?</p>
+        <div class="answers">
+          <button class="neon-btn yes" id="yesBtn">Evet 💗</button>
+          <button class="ghost-btn" id="noBtn">Hayır</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="invite" id="invite">
+      <div class="invite-card">
+        <p class="inv-label">DAVETİYE · 초대장</p>
+        <h3>Devam filminin ilk sahnesi</h3>
+        <div class="inv-rows">
+          <div><small>TARİH</small><b id="invDate"></b></div>
+          <div><small>YER</small><b id="invPlace"></b></div>
+          <div><small>KIYAFET</small><b>En güzel gülüşün</b></div>
+        </div>
+        <p class="inv-love">Seni seviyorum, Aleyna.<br><span class="ko">사랑해, 알레이나.</span></p>
+        <p class="inv-sign">— Yönetmenin, Eren</p>
+      </div>
+      <button class="ghost-btn replay" onclick="location.reload()">Filmi tekrar izle ↺</button>
+    </div>
+  </section>
+
+  <div class="toast" id="toast"></div>
+  <div class="hearts" id="hearts" aria-hidden="true"></div>
+
+  <!-- İsteğe bağlı müzik: klasöre "music.mp3" koyarsan otomatik çalar -->
+  <audio id="music" src="music.mp3" loop preload="auto"></audio>
+  <button id="soundBtn" class="sound-btn hidden" aria-label="Müzik">♪</button>
+
+  <script src="script.js"></script>
+</body>
+</html>
